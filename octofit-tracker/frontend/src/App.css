@@ -1,0 +1,28 @@
+.hero-panel {
+  background: linear-gradient(120deg, #153c63, #267c86);
+  color: white;
+}
+
+.hero-panel h1 {
+  max-width: 720px;
+}
+
+.eyebrow {
+  color: #b7f0dc;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.feature-card {
+  border-color: #e3eaf0;
+  color: inherit;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.feature-card:hover,
+.feature-card:focus-visible {
+  border-color: #267c86;
+  transform: translateY(-2px);
+}
