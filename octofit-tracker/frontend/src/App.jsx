@@ -1,10 +1,16 @@
 import { Link, NavLink, Route, Routes } from 'react-router-dom'
+import Activities from './components/Activities.jsx'
+import Leaderboard from './components/Leaderboard.jsx'
+import Teams from './components/Teams.jsx'
+import Users from './components/Users.jsx'
+import Workouts from './components/Workouts.jsx'
 import './App.css'
 
 const sections = [
   { title: 'Activities', path: '/activities', description: 'Log movement and celebrate your progress.' },
-  { title: 'Teams', path: '/teams', description: 'Find your people and keep each other moving.' },
   { title: 'Leaderboard', path: '/leaderboard', description: 'See how your team effort adds up.' },
+  { title: 'Teams', path: '/teams', description: 'Find your people and keep each other moving.' },
+  { title: 'Users', path: '/users', description: 'Meet the people on your OctoFit team.' },
   { title: 'Workouts', path: '/workouts', description: 'Discover ideas for your next session.' },
 ]
 
@@ -41,13 +47,14 @@ function Dashboard() {
   )
 }
 
-function SectionPage({ title }) {
+function NotFound() {
   return (
     <main className="container py-5">
       <p className="eyebrow mb-2">OctoFit Tracker</p>
-      <h1 className="display-6 fw-bold">{title}</h1>
-      <p className="text-body-secondary">This section is ready for your OctoFit features.</p>
-      <Link className="btn btn-outline-primary mt-2" to="/">Back to dashboard</Link>
+      <h1 className="display-6 fw-bold">Page not found</h1>
+      <Link className="btn btn-outline-primary mt-2" to="/">
+        Back to dashboard
+      </Link>
     </main>
   )
 }
@@ -63,17 +70,26 @@ function App() {
           </Link>
           <div className="navbar-nav ms-auto flex-row flex-wrap gap-2">
             {sections.map(({ title, path }) => (
-              <NavLink className="nav-link" key={path} to={path}>{title}</NavLink>
+              <NavLink
+                className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+                end
+                key={path}
+                to={path}
+              >
+                {title}
+              </NavLink>
             ))}
           </div>
         </div>
       </nav>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        {sections.map(({ title, path }) => (
-          <Route element={<SectionPage title={title} />} key={path} path={path} />
-        ))}
-        <Route path="*" element={<SectionPage title="Page not found" />} />
+        <Route path="/activities" element={<Activities />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/teams" element={<Teams />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/workouts" element={<Workouts />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   )
